@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create-war" name="Create Runnable Jar for Project Serial">
+	<!--this file was created by Eclipse Runnable JAR Export Wizard-->
+	<!--ANT 1.7 is required                                        -->
+	<target name="init" depends="clean">
+		<mkdir dir="C:/Users/Ankit/OneDrive/Documents/My Folder/ESE 519/project/rpi/" />
+		<mkdir dir="C:/Users/Ankit/OneDrive/Documents/My Folder/ESE 519/project/rpi/WEB-INF/classes" />
+		<mkdir dir="C:/Users/Ankit/OneDrive/Documents/My Folder/ESE 519/project/rpi/WEB-INF/lib" />
+	</target>
+	<target name="create_run_jar">
+		<jar destfile="C:/Users/Ankit/OneDrive/Documents/My Folder/ESE 519/project/serial.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="edu.upenn.ese519.project.serial.SerialInterface" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+			<fileset dir="C:/Users/Ankit/workspace/Serial/bin" />
+			<zipfileset excludes="META-INF/*.SF" src="C:/Users/Ankit/workspace/Serial/lib/jssc-2.8.0-javadoc.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="C:/Users/Ankit/workspace/Serial/lib/jssc-2.8.0-sources.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="C:/Users/Ankit/workspace/Serial/lib/jssc-2.8.0.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="C:/Users/Ankit/workspace/Serial/lib/servlet-api.jar" />
+		</jar>
+	</target>
+	<target name="compile-servlet" depends="init">
+		<javac srcdir="src" destdir="C:/Users/Ankit/OneDrive/Documents/My Folder/ESE 519/project/rpi/WEB-INF/classes" includes="**/*WebServer.java" deprecation="on" debug="true" includeantruntime="false">
+			<compilerarg value="-Xlint" />
+			<classpath>
+				<fileset dir="C:/Users/Ankit/workspace/Serial/lib/">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+	<target name="create-war" depends="compile-servlet">
+		<copy todir="C:/Users/Ankit/OneDrive/Documents/My Folder/ESE 519/project/rpi/WEB-INF/lib" overwrite="true">
+			<fileset dir="C:/Users/Ankit/workspace/Serial/lib/">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+		<jar destfile="C:/Users/Ankit/OneDrive/Documents/My Folder/ESE 519/project/greenhouse.war">
+			<fileset dir="C:/Users/Ankit/OneDrive/Documents/My Folder/ESE 519/project/rpi/" includes="WEB-INF/classes/**/*.class" />
+			<fileset dir="C:/Users/Ankit/OneDrive/Documents/My Folder/ESE 519/project/rpi/" includes="WEB-INF/lib/*.jar" />
+			<fileset dir="C:/Users/Ankit/OneDrive/Documents/My Folder/ESE 519/project/rpi/" includes="WEB-INF/*.xml" />
+		</jar>
+	</target>
+	<target name="clean">
+		<delete dir="C:/Users/Ankit/OneDrive/Documents/My Folder/ESE 519/project/rpi/WEB-INF/classes"/>
+		<delete dir="C:/Users/Ankit/OneDrive/Documents/My Folder/ESE 519/project/rpi/WEB-INF/lib"/>
+		<delete file="C:/Users/Ankit/OneDrive/Documents/My Folder/ESE 519/project/greenhouse.war"/>
+	</target>
+</project>
